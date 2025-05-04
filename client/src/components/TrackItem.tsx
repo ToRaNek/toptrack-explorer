@@ -1,6 +1,7 @@
 import React from 'react';
 import { SpotifyTrack } from '../types';
 import Player from './Player';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface TrackItemProps {
     track: SpotifyTrack;
@@ -8,6 +9,8 @@ interface TrackItemProps {
 }
 
 const TrackItem: React.FC<TrackItemProps> = ({ track, index }) => {
+    const { t } = useLanguage();
+
     // Sélection de l'image de meilleure qualité
     const albumImage = track.album.images.sort((a, b) => b.width - a.width)[0];
 
@@ -51,7 +54,7 @@ const TrackItem: React.FC<TrackItemProps> = ({ track, index }) => {
                     {/* Badge pour "Écouté récemment" */}
                     {track.isRecentlyPlayed && (
                         <span className="ml-2 px-2 py-1 bg-blue-500 text-xs text-white rounded-full">
-                            Récent
+                            {t('badge.recent')}
                         </span>
                     )}
                 </div>

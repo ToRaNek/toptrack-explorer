@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface PlayerProps {
     url: string | null;
@@ -6,6 +7,7 @@ interface PlayerProps {
 }
 
 const Player: React.FC<PlayerProps> = ({ url, trackName }) => {
+    const { t } = useLanguage();
     const [isPlaying, setIsPlaying] = useState(false);
     const audioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -42,7 +44,7 @@ const Player: React.FC<PlayerProps> = ({ url, trackName }) => {
             <button
                 disabled
                 className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 text-gray-500 cursor-not-allowed"
-                title="Aperçu non disponible"
+                title={t('player.unavailable')}
             >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -64,7 +66,7 @@ const Player: React.FC<PlayerProps> = ({ url, trackName }) => {
             <button
                 onClick={togglePlay}
                 className="flex items-center justify-center w-10 h-10 rounded-full bg-green-500 hover:bg-green-600 text-white focus:outline-none"
-                title={isPlaying ? "Pause" : "Lecture"}
+                title={isPlaying ? t('player.pause') : t('player.play')}
             >
                 {isPlaying ? (
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

@@ -1,7 +1,9 @@
 import React, { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import NotificationBar from './NotificationBar';
+import LanguageSelector from './LanguageSelector';
 import { Notification } from '../types';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface LayoutProps {
     children: ReactNode;
@@ -18,6 +20,8 @@ const Layout: React.FC<LayoutProps> = ({
                                            isAuthenticated,
                                            onLogout
                                        }) => {
+    const { t } = useLanguage();
+
     return (
         <div className="min-h-screen bg-gray-900 text-white">
             <NotificationBar
@@ -31,17 +35,21 @@ const Layout: React.FC<LayoutProps> = ({
                         <svg className="w-8 h-8 mr-2" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" />
                         </svg>
-                        TopTrack Explorer
+                        {t('app.title')}
                     </Link>
 
-                    {isAuthenticated && (
-                        <button
-                            onClick={onLogout}
-                            className="px-4 py-2 rounded bg-red-600 hover:bg-red-700 transition-colors"
-                        >
-                            Déconnexion
-                        </button>
-                    )}
+                    <div className="flex items-center">
+                        <LanguageSelector />
+
+                        {isAuthenticated && (
+                            <button
+                                onClick={onLogout}
+                                className="ml-4 px-4 py-2 rounded bg-red-600 hover:bg-red-700 transition-colors"
+                            >
+                                {t('app.logout')}
+                            </button>
+                        )}
+                    </div>
                 </div>
             </header>
 
@@ -51,7 +59,7 @@ const Layout: React.FC<LayoutProps> = ({
 
             <footer className="bg-black py-4 mt-8">
                 <div className="container mx-auto px-4 text-center text-gray-400">
-                    <p>Propulsé par Spotify</p>
+                    <p>{t('app.poweredBy')}</p>
                     <a
                         href="https://developer.spotify.com"
                         target="_blank"

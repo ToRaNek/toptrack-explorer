@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Layout from '../components/Layout';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface CallbackProps {
     onNotificationClose: () => void;
@@ -13,6 +14,7 @@ const Callback: React.FC<CallbackProps> = ({
                                            }) => {
     const navigate = useNavigate();
     const [error, setError] = useState<string | null>(null);
+    const { t } = useLanguage();
 
     useEffect(() => {
         const params = new URLSearchParams(window.location.search);
@@ -45,7 +47,7 @@ const Callback: React.FC<CallbackProps> = ({
             <div className="flex flex-col items-center justify-center h-64">
                 <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-green-500 mb-4"></div>
                 <p className="text-lg">
-                    {error ? 'Échec de l\'authentification' : 'Authentification en cours...'}
+                    {error ? t('callback.failed') : t('callback.authenticating')}
                 </p>
             </div>
         </Layout>

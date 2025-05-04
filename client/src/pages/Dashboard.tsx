@@ -4,6 +4,7 @@ import { useFetchTopData } from '../hooks/useFetchTopData';
 import Layout from '../components/Layout';
 import TrackItem from '../components/TrackItem';
 import ArtistItem from '../components/ArtistItem';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface DashboardProps {
     isAuthenticated: boolean;
@@ -20,6 +21,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                                                  notification,
                                                  onNotificationClose
                                              }) => {
+    const { t } = useLanguage();
     const [timeRange, setTimeRange] = useState<'short_term' | 'medium_term' | 'long_term'>('medium_term');
 
     const {
@@ -52,9 +54,9 @@ const Dashboard: React.FC<DashboardProps> = ({
     }
 
     const timeRangeLabels = {
-        'short_term': 'Les 4 dernières semaines',
-        'medium_term': 'Les 6 derniers mois',
-        'long_term': 'Tout le temps'
+        'short_term': t('dashboard.shortTerm'),
+        'medium_term': t('dashboard.mediumTerm'),
+        'long_term': t('dashboard.longTerm')
     };
 
     return (
@@ -69,10 +71,10 @@ const Dashboard: React.FC<DashboardProps> = ({
             onLogout={onLogout}
         >
             <div className="mb-8">
-                <h1 className="text-3xl font-bold mb-4">Votre profil d'écoute</h1>
+                <h1 className="text-3xl font-bold mb-4">{t('dashboard.listeningProfile')}</h1>
 
                 <div className="flex flex-wrap items-center mb-4">
-                    <span className="mr-4">Période :</span>
+                    <span className="mr-4">{t('dashboard.period')}</span>
                     <div className="flex space-x-2">
                         {Object.entries(timeRangeLabels).map(([value, label]) => (
                             <button
@@ -92,7 +94,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                     <button
                         onClick={() => refetch()}
                         className="ml-auto p-2 rounded-full bg-gray-700 hover:bg-gray-600 text-white"
-                        title="Rafraîchir"
+                        title={t('dashboard.refresh')}
                     >
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
@@ -108,7 +110,7 @@ const Dashboard: React.FC<DashboardProps> = ({
             ) : (
                 <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
                     <div className="lg:col-span-3">
-                        <h2 className="text-2xl font-bold mb-6">Vos 10 titres préférés</h2>
+                        <h2 className="text-2xl font-bold mb-6">{t('dashboard.topTracks')}</h2>
 
                         {data?.topTracks?.length ? (
                             <div>
@@ -121,12 +123,12 @@ const Dashboard: React.FC<DashboardProps> = ({
                                 ))}
                             </div>
                         ) : (
-                            <p className="text-gray-400">Aucun titre à afficher.</p>
+                            <p className="text-gray-400">{t('dashboard.noTracks')}</p>
                         )}
                     </div>
 
                     <div className="lg:col-span-2">
-                        <h2 className="text-2xl font-bold mb-6">Vos 5 artistes préférés</h2>
+                        <h2 className="text-2xl font-bold mb-6">{t('dashboard.topArtists')}</h2>
 
                         {data?.topArtists?.length ? (
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4">
@@ -139,7 +141,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                                 ))}
                             </div>
                         ) : (
-                            <p className="text-gray-400">Aucun artiste à afficher.</p>
+                            <p className="text-gray-400">{t('dashboard.noArtists')}</p>
                         )}
                     </div>
                 </div>
