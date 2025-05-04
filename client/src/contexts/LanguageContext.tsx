@@ -24,7 +24,11 @@ const translations: Record<Language, TranslationMap> = {
         'dashboard.topArtists': 'Vos 5 artistes préférés',
         'dashboard.noTracks': 'Aucun titre trouvé',
         'dashboard.noArtists': 'Aucun artiste trouvé',
-        'badge.recent': 'Récemment joué'
+        'badge.recent': 'Récemment joué',
+        'login.welcome': 'Bienvenue sur TopTrack Explorer',
+        'login.description': 'Connectez-vous avec Spotify pour découvrir vos artistes et titres préférés.',
+        'login.button': 'Se connecter avec Spotify',
+        'login.disclaimer': 'Nous n\'enregistrons aucune donnée personnelle. Vos informations sont sécurisées.',
     },
     en: {
         // Common
@@ -40,7 +44,12 @@ const translations: Record<Language, TranslationMap> = {
         'dashboard.topArtists': 'Your 5 Favorite Artists',
         'dashboard.noTracks': 'No tracks found',
         'dashboard.noArtists': 'No artists found',
-        'badge.recent': 'Recently Played'
+        'badge.recent': 'Recently Played',
+        'login.welcome': 'Welcome to TopTrack Explorer',
+        'login.description': 'Log in with Spotify to discover your favorite artists and tracks.',
+        'login.button': 'Log in with Spotify',
+        'login.disclaimer': 'We do not store any personal data. Your information is secure.',
+
     }
 };
 
