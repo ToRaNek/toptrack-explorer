@@ -22,20 +22,39 @@ export const getTopData = async (req: AuthenticatedRequest, res: Response) => {
         spotifyApi.setAccessToken(token);
 
         // Récupération du time_range du query params (facultatif)
-        // Dans getTopData function, modifiez les lignes 29-30 ainsi:
         const timeRange = req.query.time_range as string;
         const validTimeRange = (timeRange === 'short_term' || timeRange === 'long_term' || timeRange === 'medium_term')
             ? (timeRange as 'short_term' | 'medium_term' | 'long_term')
             : 'medium_term';
 
-// Puis utilisez validTimeRange dans les appels API
-        const [topTracksResponse, topArtistsResponse] = await Promise.all([
+        // Récupération des données en parallèle
+        const [topTracksResponse, topArtistsResponse, recentlyPlayedResponse] = await Promise.all([
             spotifyApi.getMyTopTracks({ limit: 10, time_range: validTimeRange }),
-            spotifyApi.getMyTopArtists({ limit: 5, time_range: validTimeRange })
+            spotifyApi.getMyTopArtists({ limit: 5, time_range: validTimeRange }),
+            spotifyApi.getMyRecentlyPlayedTracks({ limit: 50 })
         ]);
 
+        // Extraire les IDs des pistes pour vérifier les likes
+        const trackIds = topTracksResponse.body.items.map(track => track.id);
+
+        // Vérifier quels titres sont likés
+        const checkSavedResponse = await spotifyApi.containsMySavedTracks(trackIds);
+
+        // Créer un Map pour un accès facile aux données récentes
+        const recentlyPlayedMap = new Map();
+        recentlyPlayedResponse.body.items.forEach(item => {
+            recentlyPlayedMap.set(item.track.id, true);
+        });
+
+        // Ajouter les infos "récemment joué" et "liké" aux pistes
+        const enhancedTracks = topTracksResponse.body.items.map((track, index) => ({
+            ...track,
+            isLiked: checkSavedResponse.body[index],
+            isRecentlyPlayed: recentlyPlayedMap.has(track.id)
+        }));
+
         res.json({
-            topTracks: topTracksResponse.body.items,
+            topTracks: enhancedTracks,
             topArtists: topArtistsResponse.body.items
         });
 

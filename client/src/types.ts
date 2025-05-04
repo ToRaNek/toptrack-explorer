@@ -32,6 +32,8 @@ export interface SpotifyTrack {
     };
     album: SpotifyAlbum;
     artists: SpotifyArtist[];
+    isLiked?: boolean;
+    isRecentlyPlayed?: boolean;
 }
 
 export interface TopData {
