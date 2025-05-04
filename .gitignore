@@ -60,3 +60,5 @@ client_secret.json
 
 # TypeScript
 *.tsbuildinfo
+
+package-lock.json
