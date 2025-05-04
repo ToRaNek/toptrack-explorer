@@ -2,7 +2,7 @@
 
 ## Description
 
-TopTrack Explorer est une Progressive Web App (PWA) qui permet aux utilisateurs Spotify de visualiser leurs titres et artistes préférés. Après authentification via OAuth 2.0 avec PKCE, l'application présente à l'utilisateur ses 10 titres les plus écoutés ainsi que ses 5 artistes favoris, avec la possibilité d'écouter un extrait de 30 secondes pour chaque titre. L'application indique également quels morceaux ont été récemment écoutés et lesquels ont été likés.
+TopTrack Explorer est une Progressive Web App (PWA) qui permet aux utilisateurs Spotify de visualiser leurs titres et artistes préférés. Après authentification via OAuth 2.0 avec PKCE, l'application présente à l'utilisateur ses 10 titres les plus écoutés ainsi que ses 5 artistes favoris, avec la possibilité d'écouter un extrait de 30 secondes pour chaque titre. L'application indique également quels morceaux ont été récemment écoutés et lesquels ont été likés. L'interface est disponible en français et en anglais.
 
 ![Spotify Integration](https://developer.spotify.com/assets/branding-guidelines/icon3@2x.png)
 
@@ -12,6 +12,7 @@ TopTrack Explorer est une Progressive Web App (PWA) qui permet aux utilisateurs 
 - **Visualisation des 10 titres les plus écoutés** de l'utilisateur
 - **Visualisation des 5 artistes favoris** de l'utilisateur
 - **Indicateurs visuels** pour les morceaux récemment écoutés et likés
+- **Interface multilingue** (français et anglais)
 - **Lecteur audio intégré** pour écouter des extraits de 30 secondes
 - **Filtrage par période** (4 semaines, 6 mois, tout le temps)
 - **Conformité totale** avec les politiques de développement Spotify
@@ -87,13 +88,14 @@ Les scopes Spotify utilisés sont:
 ## Utilisation
 
 1. Accédez à `http://localhost:3000` dans votre navigateur
-2. Cliquez sur "Se connecter avec Spotify"
-3. Autorisez l'application à accéder à vos données
-4. Visualisez vos titres et artistes préférés
-5. Les morceaux récemment écoutés sont indiqués par un badge "Récent"
-6. Les morceaux likés sont indiqués par un badge en forme de cœur
-7. Utilisez les boutons de filtrage pour changer la période
-8. Cliquez sur les boutons de lecture pour écouter les extraits
+2. Sélectionnez votre langue préférée (FR/EN) via le sélecteur en haut à droite
+3. Cliquez sur "Se connecter avec Spotify"
+4. Autorisez l'application à accéder à vos données
+5. Visualisez vos titres et artistes préférés
+6. Les morceaux récemment écoutés sont indiqués par un badge "Récent"
+7. Les morceaux likés sont indiqués par un badge en forme de cœur
+8. Utilisez les boutons de filtrage pour changer la période
+9. Cliquez sur les boutons de lecture pour écouter les extraits
 
 ## Structure du projet
 
@@ -103,6 +105,7 @@ toptrack-explorer/
 │   ├── public/
 │   ├── src/
 │   │   ├── components/          # Composants réutilisables
+│   │   ├── contexts/            # Contextes React (langue, etc.)
 │   │   ├── hooks/               # Custom React hooks
 │   │   ├── pages/               # Pages de l'application
 │   │   ├── utils/               # Utilitaires
@@ -118,6 +121,18 @@ toptrack-explorer/
 │   │   └── server.ts            # Point d'entrée du serveur
 └── ...
 ```
+
+## Internationalisation
+
+L'application prend en charge plusieurs langues :
+- Français (par défaut)
+- Anglais
+
+Le système d'internationalisation est basé sur React Context API et détecte automatiquement la langue du navigateur de l'utilisateur. La préférence de langue est sauvegardée dans le localStorage pour les visites ultérieures.
+
+Pour ajouter une nouvelle langue :
+1. Ajoutez la nouvelle langue dans `client/src/contexts/LanguageContext.tsx`
+2. Créez une nouvelle entrée dans l'objet `translations` avec toutes les clés de traduction
 
 ## Conformité aux politiques Spotify
 
