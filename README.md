@@ -2,7 +2,7 @@
 
 ## Description
 
-TopTrack Explorer est une Progressive Web App (PWA) qui permet aux utilisateurs Spotify de visualiser leurs titres et artistes préférés. Après authentification via OAuth 2.0 avec PKCE, l'application présente à l'utilisateur ses 10 titres les plus écoutés ainsi que ses 5 artistes favoris, avec la possibilité d'écouter un extrait de 30 secondes pour chaque titre.
+TopTrack Explorer est une Progressive Web App (PWA) qui permet aux utilisateurs Spotify de visualiser leurs titres et artistes préférés. Après authentification via OAuth 2.0 avec PKCE, l'application présente à l'utilisateur ses 10 titres les plus écoutés ainsi que ses 5 artistes favoris, avec la possibilité d'écouter un extrait de 30 secondes pour chaque titre. L'application indique également quels morceaux ont été récemment écoutés et lesquels ont été likés.
 
 ![Spotify Integration](https://developer.spotify.com/assets/branding-guidelines/icon3@2x.png)
 
@@ -11,6 +11,7 @@ TopTrack Explorer est une Progressive Web App (PWA) qui permet aux utilisateurs 
 - **Authentification sécurisée** avec Spotify via OAuth 2.0 et PKCE
 - **Visualisation des 10 titres les plus écoutés** de l'utilisateur
 - **Visualisation des 5 artistes favoris** de l'utilisateur
+- **Indicateurs visuels** pour les morceaux récemment écoutés et likés
 - **Lecteur audio intégré** pour écouter des extraits de 30 secondes
 - **Filtrage par période** (4 semaines, 6 mois, tout le temps)
 - **Conformité totale** avec les politiques de développement Spotify
@@ -46,8 +47,8 @@ TopTrack Explorer est une Progressive Web App (PWA) qui permet aux utilisateurs 
    ```
 
 3. Configurez les variables d'environnement:
-    - Copiez les fichiers `.env.example` en `.env` dans les dossiers `client` et `server`
-    - Remplissez les variables avec vos informations Spotify
+   - Copiez les fichiers `.env.example` en `.env` dans les dossiers `client` et `server`
+   - Remplissez les variables avec vos informations Spotify
 
    Pour server/.env:
    ```
@@ -80,6 +81,8 @@ Les scopes Spotify utilisés sont:
 - `user-top-read` (pour accéder aux données d'écoute)
 - `user-read-private` (pour accéder aux informations de profil)
 - `user-read-email` (pour l'identification de l'utilisateur)
+- `user-read-recently-played` (pour déterminer les morceaux récemment écoutés)
+- `user-library-read` (pour vérifier les morceaux likés)
 
 ## Utilisation
 
@@ -87,8 +90,10 @@ Les scopes Spotify utilisés sont:
 2. Cliquez sur "Se connecter avec Spotify"
 3. Autorisez l'application à accéder à vos données
 4. Visualisez vos titres et artistes préférés
-5. Utilisez les boutons de filtrage pour changer la période
-6. Cliquez sur les boutons de lecture pour écouter les extraits
+5. Les morceaux récemment écoutés sont indiqués par un badge "Récent"
+6. Les morceaux likés sont indiqués par un badge en forme de cœur
+7. Utilisez les boutons de filtrage pour changer la période
+8. Cliquez sur les boutons de lecture pour écouter les extraits
 
 ## Structure du projet
 
